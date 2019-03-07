@@ -58,6 +58,37 @@ propertyApp.directive("select2", function($timeout, $parse) {
 
 propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scope, $rootScope, $window){
 
+
+/********** Property Defaults ********/
+
+    $scope.currentFormSection = 1;
+    $scope.defaultRentalType = {
+      suitedFor: 1,
+      sizeDim: 'sqft',
+      sizeLength: 1,
+      noOfUnit:1,
+      gallery: [],
+      bathroom: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      bedroom: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      kitchen: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      balcony: {
+        have: false,
+        type: 'private'
+      }
+
+    };
   
   $scope.onLoad = function(){
 
@@ -69,6 +100,7 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
     $scope.dzCallbacks = {
       'addedfile' : function(file){
         console.info('File added from dropzone 1.', file);
+        console.info('rentalTypes', $scope.property.rentalTypes);
       }
     };
 
@@ -87,8 +119,49 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 	    }]
     }
 
+
+    $scope.property.currentRentalType = 1;
+    $scope.property.rentalTypes = [$scope.defaultRentalType];
+
+
+
     console.log('$scope.property', $scope.property);
   }
 
   $scope.onLoad();
+
+  // Add new rental type with default values
+  $scope.showSection = function(section) {
+
+    $scope.currentFormSection = section;
+  }
+
+  // Add new rental type with default values
+  $scope.addRentalType = function() {
+  
+    $scope.property.rentalTypes.push($scope.defaultRentalType);
+    $scope.property.currentRentalType = $scope.property.rentalTypes.length;
+    console.log('rentalTypes', $scope.property.rentalTypes);
+    console.log('currentRentalType', $scope.property.currentRentalType);
+  }
+
+  // cancel editing of rental type
+  $scope.cancelRentalTypeEdit = function() {
+
+    $scope.property.currentRentalType = 0; // do not match any
+    console.log('currentRentalType', $scope.property.currentRentalType);
+  }
+
+  // allow editing of a rental type 
+  $scope.allowEditRentalType = function(currentRentalType) {
+    
+    $scope.property.currentRentalType = currentRentalType;
+    console.log('currentRentalType', $scope.property.currentRentalType);
+  }
+
+  // allow editing of a rental type 
+  $scope.saveRentalType = function() {
+
+    console.log('rentalTypes', $scope.property.rentalTypes);
+  }
 });

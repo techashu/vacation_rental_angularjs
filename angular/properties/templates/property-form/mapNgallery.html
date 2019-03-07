@@ -1,0 +1,39 @@
+<div id="mapNgallery" class="step-content has-roomtypes" ng-show="currentFormSection == 2">
+	<fieldset>
+		<legend>Location</legend>
+		<div class="content">
+			<div class="row-fluid">
+				
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Gallery</legend>
+		<div class="content">
+			<div ng-repeat="(key, rentalType) in property.rentalTypes track by $index">
+				<div class="property-name form-horizontal ">
+					<span>Rental Type  #{{key + 1}}</span>
+				</div>
+				
+				<div class="property">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="dropzone{{key+1}}" class="dropzone" options="dzOptions" callbacks="dzCallbacks" ng-dropzone ng-model="rentalType.gallery"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+	</fieldset>
+	
+</div>
+
+
+<div class="row bottom-btns" ng-show="currentFormSection == 2">
+	<div class="col-md-12">
+		<button class="btn btn-md btn-success pull-right" ng-click="showSection(currentFormSection + 1)">Save and Continue</button>
+		<button class="btn btn-md btn-success pull-right">Save</button>
+	</div>
+</div>

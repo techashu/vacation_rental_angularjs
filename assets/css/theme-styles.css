@@ -7,6 +7,34 @@ body, button, input, select, textarea {
 font-family: Roboto,sans-serif;
 font-size: 14px;
 }
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .breadcrumb {
 padding: 8px 15px;
 margin: 0 0 20px;
@@ -251,3 +279,7 @@ h1, h2, h3, h4, h5, h6 { margin: 1em 0; }
   display: inline-block;
   margin-left: 10px;
 }
+.steps li a { text-decoration: none; cursor: pointer; }
+.bottom-btns { padding: 20px 10px; }
+.bottom-btns .btn:last-child { margin-right: 10px; }
+.container.main { min-height: calc(100vh - 20vh) }
