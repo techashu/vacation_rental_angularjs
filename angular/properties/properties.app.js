@@ -1,17 +1,17 @@
 Dropzone.autoDiscover = false;
-var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone']);
+var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'app.directive.dropzone', 'ui']);
 
 
-propertyApp.config(function(dropzoneOpsProvider){
-  dropzoneOpsProvider.setOptions({
-    url : 'http://localhost/upload.php',
-    acceptedFiles : 'image/jpeg, images/jpg, image/png',
-    addRemoveLinks : true,
-    dictDefaultMessage : 'Click to add or drop photos',
-    dictRemoveFile : 'Remove photo',
-    dictResponseError : 'Could not upload this photo'
-  });
-});
+// propertyApp.config(function(dropzoneOpsProvider){
+//   dropzoneOpsProvider.setOptions({
+//     url : 'http://localhost/upload.php',
+//     acceptedFiles : 'image/jpeg, images/jpg, image/png',
+//     addRemoveLinks : true,
+//     dictDefaultMessage : 'Click to add or drop photos',
+//     dictRemoveFile : 'Remove photo',
+//     dictResponseError : 'Could not upload this photo'
+//   });
+// });
 
 
 propertyApp.directive("select2", function($timeout, $parse) {
@@ -60,13 +60,15 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
 
 /********** Property Defaults ********/
+    
 
+    $scope.data = { upload:[] }
     $scope.currentFormSection = 1;
-    $scope.defaultRentalType = {
+    var defaultRentalType = {
       suitedFor: 1,
       sizeDim: 'sqft',
       sizeLength: 1,
-      noOfUnit:1,
+      noOfUnit: 1,
       gallery: [],
       bathroom: {
         have: false,
@@ -96,6 +98,8 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
       paramName : 'photo',
       maxFilesize : '10'
     };
+
+    $scope.list = ["one", "two", "three", "four", "five", "six"];
     
     $scope.dzCallbacks = {
       'addedfile' : function(file){
@@ -121,7 +125,7 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
 
     $scope.property.currentRentalType = 1;
-    $scope.property.rentalTypes = [$scope.defaultRentalType];
+    $scope.property.rentalTypes = [defaultRentalType];
 
 
 
@@ -138,8 +142,34 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
   // Add new rental type with default values
   $scope.addRentalType = function() {
-  
-    $scope.property.rentalTypes.push($scope.defaultRentalType);
+    let newRentalType = {
+      suitedFor: 1,
+      sizeDim: 'sqft',
+      sizeLength: 1,
+      noOfUnit: 1,
+      gallery: [],
+      bathroom: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      bedroom: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      kitchen: {
+        have: false,
+        count: 1,
+        type: 'private'
+      },
+      balcony: {
+        have: false,
+        type: 'private'
+      }
+
+    };
+    $scope.property.rentalTypes.push(newRentalType);
     $scope.property.currentRentalType = $scope.property.rentalTypes.length;
     console.log('rentalTypes', $scope.property.rentalTypes);
     console.log('currentRentalType', $scope.property.currentRentalType);

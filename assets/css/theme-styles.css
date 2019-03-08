@@ -283,3 +283,37 @@ h1, h2, h3, h4, h5, h6 { margin: 1em 0; }
 .bottom-btns { padding: 20px 10px; }
 .bottom-btns .btn:last-child { margin-right: 10px; }
 .container.main { min-height: calc(100vh - 20vh) }
+
+
+label.one {
+    cursor:pointer !important;
+    overflow:hidden;
+    display:block;
+    position:relative;
+    width:100%; 
+    height:100px;
+    background:whitesmoke; 
+    border-radius:4px;
+    font:caption; 
+    text-align:center; 
+    border:1px dotted silver;
+    box-sizing:border-box;
+    
+}
+
+label.one p { padding-top:16px; font-size:16px; } 
+label.one span { display:block; font-size:10px;}    
+label.one img  { position:absolute; top:0; left:0; height:100px;}
+label.one input{
+    position:absolute;
+    top:0;right:0;bottom:0;left:0;
+    font-size:9999px;
+    opacity:0;
+    cursor:pointer;
+}
+.rentalType-images { width: 200px; height: 200px; }
+li.images-item.ng-scope {
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #e9e9e9;
+}

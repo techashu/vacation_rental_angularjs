@@ -118,7 +118,7 @@
 	<fieldset>
 		<legend>Rental Types</legend>
 		<div class="content">
-			<div ng-repeat="(key, rentalType) in property.rentalTypes track by $index">
+			<div ng-repeat="(key, rentalType) in property.rentalTypes">
 				<div class="property-name form-horizontal ">
 					<span>Rental Type  #{{key + 1}}</span>
 					<div class="pull-right clearfix">
@@ -167,8 +167,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="md-checkbox col-md-3">
-								<input id="rooms1" type="checkbox" ng-model="rentalType.bathroom.have">
-								<label for="rooms1">Bathroom</label>
+								<input id="bathroom{{key}}" type="checkbox" ng-model="rentalType.bathroom.have">
+								<label for="bathroom{{key}}">Bathroom</label>
 								<input type="text" name="bathroomCount" class="form-control count-input" ng-model="rentalType.bathroom.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.bathroom.type">
@@ -178,8 +178,8 @@
 								</div>
 							</div>
 							<div class="md-checkbox col-md-3">
-								<input id="rooms2" type="checkbox" ng-model="rentalType.bedroom.have">
-								<label for="rooms2">Bedroom</label>
+								<input id="bedroom{{key}}" type="checkbox" ng-model="rentalType.bedroom.have">
+								<label for="bedroom{{key}}">Bedroom</label>
 								<input type="text" name="bedroomCount" class="form-control count-input" ng-model="rentalType.bedroom.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.bedroom.type">
@@ -189,8 +189,8 @@
 								</div>
 							</div>
 							<div class="md-checkbox col-md-3">
-								<input id="rooms3" type="checkbox" ng-model="rentalType.kitchen.have">
-								<label for="rooms3">Kitchen</label>
+								<input id="kitchen{{key}}" type="checkbox" ng-model="rentalType.kitchen.have">
+								<label for="kitchen{{key}}">Kitchen</label>
 								<input type="text" name="kitchenCount" class="form-control count-input" ng-model="rentalType.kitchen.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.kitchen.type">
@@ -200,8 +200,8 @@
 								</div>
 							</div>
 							<div class="md-checkbox col-md-3">
-								<input id="rooms4" type="checkbox" ng-model="rentalType.balcony.have">
-								<label for="rooms4">Balcony</label>
+								<input id="balcony{{key}}" type="checkbox" ng-model="rentalType.balcony.have">
+								<label for="balcony{{key}}">Balcony</label>
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.balcony.type">
 										<option value="private">Private</option>
