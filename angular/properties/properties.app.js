@@ -1,17 +1,17 @@
 Dropzone.autoDiscover = false;
-var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'app.directive.dropzone', 'ui']);
+var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone', 'ui']);
 
 
-// propertyApp.config(function(dropzoneOpsProvider){
-//   dropzoneOpsProvider.setOptions({
-//     url : 'http://localhost/upload.php',
-//     acceptedFiles : 'image/jpeg, images/jpg, image/png',
-//     addRemoveLinks : true,
-//     dictDefaultMessage : 'Click to add or drop photos',
-//     dictRemoveFile : 'Remove photo',
-//     dictResponseError : 'Could not upload this photo'
-//   });
-// });
+propertyApp.config(function(dropzoneOpsProvider){
+  dropzoneOpsProvider.setOptions({
+    url : 'http://localhost/upload.php',
+    acceptedFiles : 'image/jpeg, images/jpg, image/png',
+    addRemoveLinks : true,
+    dictDefaultMessage : 'Click to add or drop photos',
+    dictRemoveFile : 'Remove photo',
+    dictResponseError : 'Could not upload this photo'
+  });
+});
 
 
 propertyApp.directive("select2", function($timeout, $parse) {
@@ -107,7 +107,7 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
         console.info('rentalTypes', $scope.property.rentalTypes);
       }
     };
-
+    
 	  $scope.showLoader = true;
 	  $scope.heading = "Welcome";
 	  
@@ -133,6 +133,12 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
   }
 
   $scope.onLoad();
+
+  $scope.myFunction = function(key) {
+    
+    console.log('key', key);
+  }
+
 
   // Add new rental type with default values
   $scope.showSection = function(section) {
