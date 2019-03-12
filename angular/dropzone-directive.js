@@ -2,7 +2,7 @@
  * AngularJS dropzone directive
  * 
  * 
- 
+
  
 
 angular.module('app.directive.dropzone',[])
@@ -63,14 +63,13 @@ angular.module('app.directive.dropzone',[])
     ])
 
 
+
 */
 
-
- 
 (function(root){
     'use strict';
   function factory(angular, Dropzone){
-      
+
     angular.module('ui.dropzone', []).provider('dropzoneOps', function(){
       /*
        *  Add default options here
@@ -78,7 +77,7 @@ angular.module('app.directive.dropzone',[])
       var defOps = {
         //Add your options here
       };
-      
+
       return {
         setOptions : function(newOps){
           angular.extend(defOps, newOps);
@@ -101,43 +100,43 @@ angular.module('app.directive.dropzone',[])
           //Set options for dropzone {override from dropzone options provider}
           scope.options = scope.options || {};
           var initOps = angular.extend({}, dropzoneOps, scope.options);
-          
-          
+
+
           //Instantiate dropzone with initOps
           var dropzone = new Dropzone(iElem[0], initOps);
-          
-          
+
+
           /*********************************************/
-          
-          
+
+
           //Instantiate Dropzone methods (Control actions)
           scope.methods = scope.methods || {};
-          
+
           scope.methods.getDropzone = function(){ 
             return dropzone; //Return dropzone instance
           };
-          
+
           scope.methods.getAllFiles = function(){ 
             return dropzone.files; //Return all files
           };
-          
+
           var controlMethods = [
             'removeFile', 'removeAllFiles', 'processQueue',
             'getAcceptedFiles', 'getRejectedFiles', 'getQueuedFiles', 'getUploadingFiles',
             'disable', 'enable', 'confirm', 'createThumbnailFromUrl'
           ];
-          
+
           angular.forEach(controlMethods, function(methodName){
             scope.methods[methodName] = function(){
               dropzone[methodName].apply(dropzone, arguments);
               if(!scope.$$phase && !scope.$root.$$phase) scope.$apply();
             }
           });
-          
-          
+
+
           /*********************************************/
-          
-          
+
+
           //Set invents (callbacks)
           if(scope.callbacks){
             var callbackMethods = [
@@ -160,8 +159,8 @@ angular.module('app.directive.dropzone',[])
       }
     }]);
   }
-  
-  
+
+
 
   if ((typeof module === 'object') && module.exports) {
     /* CommonJS module */

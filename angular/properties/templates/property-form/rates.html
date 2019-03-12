@@ -2,18 +2,59 @@
 	<fieldset>
 		<legend>Default Rate</legend>
 		<div class="content">
-			<div class="row-fluid">
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="size" class="label-small-inputs">Select bookability of your property</label>
+					<select class="form-control medium-input" >
+						<option >Inquiry Only</option>
+						<option >Booking Request</option>
+						<option >Instant Booking</option>
+					</select>
+				</div>
 				
+				<div class="col-md-7 callout left">
+					<span class="notch"></span>
+					<div id="settings-callout" class="" style="display: block;">You only accept bookings after your review and approval, i.e. guests can request to book your property as long as they agree to your terms (price, payment &amp; cancellation policy), but you would still need to approve each booking.
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="size" class="label-small-inputs">Select a policy</label>
+					<select class="form-control medium-input" >
+						<option >Primary policy</option>
+						<option >Prepayment</option>
+						<option >Primary policy</option>
+					</select>
+				</div>
+				<div class="col-md-6 callout left">
+					<div id="policies-callout" style="display: block;"><p><strong>
+						Payment Schedule:
+						</strong><br>
+						50% due at time of booking.
+						Remaining balance due 7 days before arrival.
+					</p>
+					<p><strong>
+						Cancellation Policy:
+						</strong><br>
+						All paid prepayments are non-refundable.
+					</p>
+					<p><strong>
+						Damage Deposit:
+						</strong><br>
+						No damage deposit is due.
+					</p>
+				</div>
+				<b class="notch"></b>
 			</div>
 		</div>
-	</fieldset>
-
-</div>
-
-
-<div class="row bottom-btns" ng-show="currentFormSection == 3">
-	<div class="col-md-12">
-		<button class="btn btn-md btn-success pull-right" ng-click="showSection(currentFormSection + 1)">Save and Continue</button>
-		<button class="btn btn-md btn-success pull-right">Save</button>
 	</div>
+</fieldset>
+</div>
+<div class="row bottom-btns" ng-show="currentFormSection == 3">
+<div class="col-md-12">
+	<button class="btn btn-md btn-success pull-right" ng-click="showSection(currentFormSection + 1)">Save and Continue</button>
+	<button class="btn btn-md btn-success pull-right">Save</button>
+</div>
 </div>

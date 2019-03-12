@@ -107,7 +107,7 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
         console.info('rentalTypes', $scope.property.rentalTypes);
       }
     };
-    
+
 	  $scope.showLoader = true;
 	  $scope.heading = "Welcome";
 	  
@@ -133,12 +133,6 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
   }
 
   $scope.onLoad();
-
-  $scope.myFunction = function(key) {
-    
-    console.log('key', key);
-  }
-
 
   // Add new rental type with default values
   $scope.showSection = function(section) {
