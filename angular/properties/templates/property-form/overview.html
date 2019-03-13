@@ -6,9 +6,6 @@
 				
 				<ul class="nav nav-tabs nav-tabs-custom">
 					<li class="active"><a data-toggle="tab" data-target="#english">English</a></li>
-					<!-- <li><a data-toggle="tab" data-target="#menu1">Menu 1</a></li> -->
-					<!-- <li><a data-toggle="tab" data-target="#menu2">Menu 2</a></li> -->
-					<!-- <li><a data-toggle="tab" data-target="#menu3">Menu 3</a></li> -->
 				</ul>
 				<div class="tab-content">
 					<div id="english" class="tab-pane fade in active">
@@ -28,18 +25,6 @@
 							<textarea data-ui-tinymce id="tinymce1" data-ng-model="from_one.from_one"></textarea>
 						</div>
 					</div>
-					<!-- <div id="menu1" class="tab-pane fade">
-															<h3>Menu 1</h3>
-															<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					</div>
-					<div id="menu2" class="tab-pane fade">
-															<h3>Menu 2</h3>
-															<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-					</div>
-					<div id="menu3" class="tab-pane fade">
-															<h3>Menu 3</h3>
-															<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -62,27 +47,22 @@
 			
 			<div class="row">
 				<div class="col-md-12">
-					<div class="md-checkbox col-md-3">
-						<input id="fact1" type="checkbox">
-						<label for="fact1">Breakfast Included</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.breakfastIncluded" aria-label="breakfastIncluded" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Breakfast Included </md-checkbox>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact2" type="checkbox">
-						<label for="fact2">Credit cards accepted</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.creditCardsAccepted" aria-label="creditCardsAccepted" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Credit cards accepted </md-checkbox>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact3" type="checkbox">
-						<label for="fact3">Accesible 24/7</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.accesible247" aria-label="accesible247" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Accesible 24/7 </md-checkbox>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact4" type="checkbox">
-						<label for="fact4">Elevator in builing</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.elevatorInBuiling" aria-label="elevatorInBuiling" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Elevator in builing </md-checkbox>
 					</div>
 				</div>
 				<div class="col-md-12">
-					<div class="md-checkbox col-md-3">
-						<input id="fact5" type="checkbox">
-						<label for="fact5">Parking</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.parking" aria-label="parking" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Parking </md-checkbox>
 						<div class="form-group">
 							<select class="form-control">
 								<option>Roofed Carport</option>
@@ -93,9 +73,8 @@
 							</select>
 						</div>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact6" type="checkbox">
-						<label for="fact6">Parking</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.parking2" aria-label="parking2" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Parking </md-checkbox>
 						<div class="form-group">
 							<select class="form-control">
 								<option>Parking Included</option>
@@ -103,13 +82,11 @@
 							</select>
 						</div>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact7" type="checkbox">
-						<label for="fact7">Outdoor swimming pool</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.outdoorSwimmingPool" aria-label="outdoorSwimmingPool" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Outdoor swimming pool </md-checkbox>
 					</div>
-					<div class="md-checkbox col-md-3">
-						<input id="fact8" type="checkbox">
-						<label for="fact8">Indoor swimming pool</label>
+					<div class="col-md-3">
+						<md-checkbox ng-model="facts.indoorSwimmingPool" aria-label="indoorSwimmingPool" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Indoor swimming pool </md-checkbox>
 					</div>
 				</div>
 			</div>
@@ -166,9 +143,8 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="md-checkbox col-md-3">
-								<input id="bathroom{{key}}" type="checkbox" ng-model="rentalType.bathroom.have">
-								<label for="bathroom{{key}}">Bathroom</label>
+							<div class="col-md-3">
+								<md-checkbox ng-model="rentalType.bathroom.have" aria-label="bathroom{{key}}" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Bathroom </md-checkbox>
 								<input type="text" name="bathroomCount" class="form-control count-input" ng-model="rentalType.bathroom.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.bathroom.type">
@@ -177,9 +153,8 @@
 									</select>
 								</div>
 							</div>
-							<div class="md-checkbox col-md-3">
-								<input id="bedroom{{key}}" type="checkbox" ng-model="rentalType.bedroom.have">
-								<label for="bedroom{{key}}">Bedroom</label>
+							<div class="col-md-3">
+								<md-checkbox ng-model="rentalType.bedroom.have" aria-label="bedroom{{key}}" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Bedroom </md-checkbox>
 								<input type="text" name="bedroomCount" class="form-control count-input" ng-model="rentalType.bedroom.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.bedroom.type">
@@ -188,9 +163,8 @@
 									</select>
 								</div>
 							</div>
-							<div class="md-checkbox col-md-3">
-								<input id="kitchen{{key}}" type="checkbox" ng-model="rentalType.kitchen.have">
-								<label for="kitchen{{key}}">Kitchen</label>
+							<div class="col-md-3">
+								<md-checkbox ng-model="rentalType.kitchen.have" aria-label="kitchen{{key}}" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Kitchen </md-checkbox>
 								<input type="text" name="kitchenCount" class="form-control count-input" ng-model="rentalType.kitchen.count">
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.kitchen.type">
@@ -199,9 +173,8 @@
 									</select>
 								</div>
 							</div>
-							<div class="md-checkbox col-md-3">
-								<input id="balcony{{key}}" type="checkbox" ng-model="rentalType.balcony.have">
-								<label for="balcony{{key}}">Balcony</label>
+							<div class="col-md-3">
+								<md-checkbox ng-model="rentalType.balcony.have" aria-label="balcony{{key}}" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Balcony </md-checkbox>
 								<div class="form-group">
 									<select class="form-control" ng-model="rentalType.balcony.type">
 										<option value="private">Private</option>
@@ -237,8 +210,6 @@
 	</fieldset>
 	
 </div>
-
-
 <div class="row bottom-btns" ng-show="currentFormSection == 1">
 	<div class="col-md-12">
 		<button class="btn btn-md btn-success pull-right" ng-click="showSection(currentFormSection + 1)">Save and Continue</button>

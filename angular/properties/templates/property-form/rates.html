@@ -1,14 +1,19 @@
 <div id="rates" class="step-content has-roomtypes" ng-show="currentFormSection == 3">
+	
+	<hr class="header-line">
 	<fieldset>
-		<legend>Default Rate</legend>
+		<legend>
+			Default Rate
+			<span><i class="fa fa-question-circle" aria-hidden="true" tooltip-placement="auto right" uib-tooltip="Here you can enter your standard rate and general pricing settings. The standard rate applies to all the periods for which you will not define a Season Rate below. We recommend you to enter your mid season rates here."></i></span>
+		</legend>
 		<div class="content">
 			<div class="row">
 				<div class="form-group col-md-4">
 					<label for="size" class="label-small-inputs">Select bookability of your property</label>
-					<select class="form-control medium-input" >
-						<option >Inquiry Only</option>
-						<option >Booking Request</option>
-						<option >Instant Booking</option>
+					<select class="form-control medium-input" ng-model="rates.bookability" ng-init="rates.bookability = 'inquiry-only'">
+						<option value="inquiry-only">Inquiry Only</option>
+						<option value="booking-request">Booking Request</option>
+						<option value="instant-booking">Instant Booking</option>
 					</select>
 				</div>
 				
@@ -22,10 +27,10 @@
 			<div class="row">
 				<div class="form-group col-md-4">
 					<label for="size" class="label-small-inputs">Select a policy</label>
-					<select class="form-control medium-input" >
-						<option >Primary policy</option>
-						<option >Prepayment</option>
-						<option >Primary policy</option>
+					<select class="form-control medium-input" ng-model="rates.policy" ng-init="rates.policy = 'primary-policy'">
+						<option value="primary-policy">Primary policy</option>
+						<option value="prepayment">Prepayment</option>
+						<option value="primary-policy2">Primary policy</option>
 					</select>
 				</div>
 				<div class="col-md-6 callout left">
@@ -47,6 +52,294 @@
 					</p>
 				</div>
 				<b class="notch"></b>
+			</div>
+		</div>
+		
+		<hr>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="currency" class="label-small-inputs">Select currency of your rates</label>
+				<select id="currency" class="form-control medium-input" ng-model="rates.currency" ng-init="rates.currency = 'USD'">
+					<option value="AUD">Austrailian Dollar</option>
+					<option value="CAD">Canadian Dollar</option>
+					<option value="USD">US Dollar</option>
+				</select>
+			</div>
+			<div class="clearfix"></div>
+			<div class="form-group col-md-6">
+				<label for="dailyPrice" class="label-small-inputs" ng-init="rates.dailyPrice = 'false'">Do you want to apply a different price depending on the day of the week?</label>
+				<md-radio-group ng-model="rates.dailyPrice" layout="row">
+				<md-radio-button value="false">No</md-radio-button>
+				<md-radio-button value="true">Yes</md-radio-button>
+				</md-radio-group>
+			</div>
+			
+			<div class="clearfix"></div>
+			
+			<div class="col-md-6" ng-show="rates.dailyPrice == 'false'">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Apartment</th>
+							<th>Nightly rate</th>
+							<th>Weekly</th>
+							<th>Monthly</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, rentalType) in property.rentalTypes">
+							<td>Rental Type {{key + 1}}</td>
+							<td><input type="text" ng-model="rentalType.rates.nightlyRate" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.weekly" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.monthly" class="small-input form-control"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-12" ng-show="rates.dailyPrice == 'true'">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Apartment</th>
+							<th>Monday</th>
+							<th>Tuesday</th>
+							<th>Wednesday</th>
+							<th>Thursday</th>
+							<th>Friday</th>
+							<th>Saturday</th>
+							<th>Sunday</th>
+							<th>Weekly</th>
+							<th>Monthly</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, rentalType) in property.rentalTypes">
+							<td>Rental Type {{key + 1}}</td>
+							<td><input type="text" ng-model="rentalType.rates.monday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.tuesday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.wednesday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.thursday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.friday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.saturday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.sunday" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.weekly" class="small-input form-control"></td>
+							<td><input type="text" ng-model="rentalType.rates.monthly" class="small-input form-control"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="dailyPrice" class="label-small-inputs" ng-init="rates.extraCharge = 'false'">Do you want to apply an extra charge considering the number of guests?</label>
+				<md-radio-group ng-model="rates.extraCharge" layout="row">
+				<md-radio-button value="false">No</md-radio-button>
+				<md-radio-button value="true">Yes</md-radio-button>
+				</md-radio-group>
+			</div>
+			
+			<div class="clearfix"></div>
+			
+			<div class="col-md-6" ng-show="rates.extraCharge == 'true'">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Apartment</th>
+							<th>Charge per guest per night</th>
+							<th>Apply extra charge after</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(key, rentalType) in property.rentalTypes">
+							<td>Rental Type {{key + 1}}</td>
+							<td><input type="text" ng-model="rentalType.extraCharges.perGuest" class="small-input form-control"></td>
+							<td>
+								<select ng-model="rentalType.extraCharges.chargeAfter" class="form-control">
+									<option value="1">1st Guest</option>
+									<option value="2">2nd Guest</option>
+									<option value="3">3rd Guest</option>
+									<option value="4">4th Guest</option>
+									<option value="5">5th Guest</option>
+									<option value="6">6th Guest</option>
+									<option value="7">7th Guest</option>
+									<option value="8">8th Guest</option>
+									<option value="9">9th Guest</option>
+									<option value="10">10th Guest</option>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.minimumStay.isSet" aria-label="minimumStay" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Minimum stay </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.minimumStay.isSet">
+				<input type="text" name="minimumStayNights" class="form-control small-input" ng-model="rates.minimumStay.nights" id="minimumStayNights">
+				<label class="append-text" for="minimumStayNights">Nights</label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.checkInAfter.isSet" aria-label="checkInAfter" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Check-in after </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.checkInAfter.isSet">
+				<select class="form-control" ng-model="rentalType.checkInAfter.time">
+					<option value="-1">flexible</option>
+					<option value="0">12:00 AM (midnight)</option>
+					<option value="1">01:00 AM</option>
+					<option value="2">02:00 AM</option>
+					<option value="3">03:00 AM</option>
+					<option value="4">04:00 AM</option>
+					<option value="5">05:00 AM</option>
+					<option value="6">06:00 AM</option>
+					<option value="7">07:00 AM</option>
+					<option value="8">08:00 AM</option>
+					<option value="9">09:00 AM</option>
+					<option value="10">10:00 AM</option>
+					<option value="11">11:00 AM</option>
+					<option value="12">12:00 PM (noon)</option>
+					<option value="13">01:00 PM</option>
+					<option value="14">02:00 PM</option>
+					<option value="15">03:00 PM</option>
+					<option value="16">04:00 PM</option>
+					<option value="17">05:00 PM</option>
+					<option value="18">06:00 PM</option>
+					<option value="19">07:00 PM</option>
+					<option value="20">08:00 PM</option>
+					<option value="21">09:00 PM</option>
+					<option value="22">10:00 PM</option>
+					<option value="23">11:00 PM</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.checkOutBefore.isSet" aria-label="checkOutBefore" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Check-out before </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.checkOutBefore.isSet">
+				<select class="form-control" ng-model="rentalType.checkOutBefore.time">
+					<option value="-1">flexible</option>
+					<option value="0">12:00 AM (midnight)</option>
+					<option value="1">01:00 AM</option>
+					<option value="2">02:00 AM</option>
+					<option value="3">03:00 AM</option>
+					<option value="4">04:00 AM</option>
+					<option value="5">05:00 AM</option>
+					<option value="6">06:00 AM</option>
+					<option value="7">07:00 AM</option>
+					<option value="8">08:00 AM</option>
+					<option value="9">09:00 AM</option>
+					<option value="10">10:00 AM</option>
+					<option value="11">11:00 AM</option>
+					<option value="12">12:00 PM (noon)</option>
+					<option value="13">01:00 PM</option>
+					<option value="14">02:00 PM</option>
+					<option value="15">03:00 PM</option>
+					<option value="16">04:00 PM</option>
+					<option value="17">05:00 PM</option>
+					<option value="18">06:00 PM</option>
+					<option value="19">07:00 PM</option>
+					<option value="20">08:00 PM</option>
+					<option value="21">09:00 PM</option>
+					<option value="22">10:00 PM</option>
+					<option value="23">11:00 PM</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.cleaningCharge.isSet" aria-label="cleaningCharge" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Cleaning charge </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.cleaningCharge.isSet">
+				<input type="text" name="cleaningChargeAmount" class="form-control small-input" ng-model="rates.cleaningCharge.amount" id="cleaningChargeAmount">
+				<label class="append-text" for="cleaningChargeAmount">$</label>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.taxes.isSet && rates.cleaningCharge.isSet">
+				<md-checkbox ng-model="rates.cleaningCharge.isTaxable" aria-label="cleaningChargeIsTaxable" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Is taxable </md-checkbox>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.miscCharges.isSet" aria-label="miscCharges" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Misc. charges </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.miscCharges.isSet">
+				<select class="form-control" ng-model="rentalType.miscCharges.type">
+					<option value="percentage">% of total booking value</option>
+					<option value="perpersonnight">per person per night</option>
+					<option value="Fixed">fixed value</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.miscCharges.isSet">
+				<input type="text" name="miscChargesAmount" class="form-control small-input" ng-model="rates.miscCharges.amount" id="miscChargesAmount">
+				<label class="append-text" for="miscChargesAmount">$</label>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.taxes.isSet && rates.miscCharges.isSet">
+				<md-checkbox ng-model="rates.miscCharges.isTaxable" aria-label="miscChargesIsTaxable" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Is taxable </md-checkbox>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<md-checkbox ng-model="rates.taxes.isSet" aria-label="taxes" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Taxes </md-checkbox>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.taxes.isSet">
+				<select class="form-control" ng-model="rentalType.taxes.type">
+					<option value="percentage">% of total booking value</option>
+					<option value="perpersonnight">per person per night</option>
+					<option value="Fixed">fixed value</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2" ng-show="rates.taxes.isSet">
+				<input type="text" name="taxesAmount" class="form-control small-input" ng-model="rates.taxes.amount" id="taxesAmount">
+				<label class="append-text" for="taxesAmount">%</label>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>
+		Rates Notes 
+		<span><i class="fa fa-question-circle" aria-hidden="true" tooltip-placement="auto right" uib-tooltip="If you have more or different policies about your rates or payments please explain them here."></i></span>
+	</legend>
+	<div class="content">
+		<div class="row-fluid">
+			
+			<ul class="nav nav-tabs nav-tabs-custom">
+				<li class="active"><a data-toggle="tab" data-target="#notes-english">English</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="notes-english" class="tab-pane fade in active">
+					<div class="form-group mb-40">
+						<label for="rate-notes">Rate Notes</label>
+						<textarea data-ui-tinymce id="rate-notes" data-ng-model="rates.notes"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Rental agreement</legend>
+	<div class="content">
+		<div class="row-fluid">
+			
+			<ul class="nav nav-tabs nav-tabs-custom">
+				<li class="active"><a data-toggle="tab" data-target="#agreement-english">English</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="agreement-english" class="tab-pane fade in active">
+					<div class="form-group mb-40">
+						
+						<p class="text-muted">You can add the rental agreement as text or provide a Url where the Rental agreement can be found.</p>
+						
+						<label for="rental-agreement">Rate Notes</label>
+						<textarea data-ui-tinymce id="rental-agreement" data-ng-model="rates.rentalAgreement"></textarea>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 Dropzone.autoDiscover = false;
-var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone', 'ui']);
+var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone', 'ui', 'ngMaterial']);
 
 
 propertyApp.config(function(dropzoneOpsProvider){
