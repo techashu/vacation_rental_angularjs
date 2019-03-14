@@ -99,6 +99,16 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
       maxFilesize : '10'
     };
 
+    $http.get('assets/js/json/countries-code.json').then(function(response) {
+      
+      $scope.phoneCodes = response.data;
+    });
+
+    $http.get('assets/js/json/languages-code.json').then(function(response) {
+      
+      $scope.languageCodes = response.data;
+    });
+
     $scope.list = ["one", "two", "three", "four", "five", "six"];
     
     $scope.dzCallbacks = {
@@ -133,6 +143,16 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
   }
 
   $scope.onLoad();
+
+  $scope.filterBySource = function() {
+
+    console.log('sourceFilter');
+  }
+
+  $scope.filterByStatus = function() {
+
+    console.log('filterByStatus');
+  }
 
   // Add new rental type with default values
   $scope.showSection = function(section) {

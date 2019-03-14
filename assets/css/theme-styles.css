@@ -171,76 +171,11 @@ h1, h2, h3, h4, h5, h6 { margin: 1em 0; }
 .feature-2>select, .has-roomtypes .amenities-list, .has-roomtypes fieldset .hint {
     margin-top: 5px;
 }
-.mb-40 { margin-bottom: 40px; }
-.margin-none { margin: 0 !important; }
 
-/*
-.md-checkbox {
-  position: relative;
-  margin: 1em 0;
-  text-align: left;
-}
-.md-checkbox.md-checkbox-inline {
-  display: inline-block;
-}
-.md-checkbox label {
-  cursor: pointer;
-  display: inline;
-  line-height: 1.25em;
-  vertical-align: top;
-  clear: both;
-  padding-left: 1px;
-}
-.md-checkbox label:not(:empty) {
-  padding-left: 0.75em;
-}
-.md-checkbox label:before, .md-checkbox label:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.md-checkbox label:before {
-  width: 1.25em;
-  height: 1.25em;
-  background: #fff;
-  border: 2px solid rgba(0, 0, 0, 0.54);
-  border-radius: 0.125em;
-  cursor: pointer;
-  transition: background .3s;
-}
-.md-checkbox input[type="checkbox"] {
-  outline: 0;
-  visibility: hidden;
-  width: 1.25em;
-  margin: 0;
-  display: block;
-  float: left;
-  font-size: inherit;
-}
-.md-checkbox .form-group {
-	margin-left: -15px;
-  margin-right: 15px;
-  padding-top: 10px;
-}
-.md-checkbox input[type="checkbox"]:checked + label:before {
-  background: #337ab7;
-  border: none;
-}
-.md-checkbox input[type="checkbox"]:checked + label:after {
-  transform: translate(0.25em, 0.3365384615em) rotate(-45deg);
-  width: 0.75em;
-  height: 0.375em;
-  border: 0.125em solid #fff;
-  border-top-style: none;
-  border-right-style: none;
-}
-.md-checkbox input[type="checkbox"]:disabled + label:before {
-  border-color: rgba(0, 0, 0, 0.26);
-}
-.md-checkbox input[type="checkbox"]:disabled:checked + label:before {
-  background: rgba(0, 0, 0, 0.26);
-}*/
+.mb-40 { margin-bottom: 40px; }
+.mb-10 { margin-bottom: 10px; }
+
+.margin-none { margin: 0 !important; }
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -395,3 +330,9 @@ input:focus + label.append-text {
   webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
+
+.block-btns { display: block !important; }
+.block-btns md-radio-button { margin-bottom: 15px !important; }
+.field-group-title { margin: 1em 0; color: #666; font-weight: 400; font-size: 22.99px; line-height: 1.2em; }
+.bubble { background: #fff; border: 2px solid #DDD; border-radius: 5px; padding: 10px; }
+.bubble, .bubble .head { margin-bottom: 10px; }

@@ -2,18 +2,162 @@
 	<fieldset>
 		<legend>Contact</legend>
 		<div class="content">
-			<div class="row-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					
+					<h4 class="field-group-title">Contact info</h4>
+					<md-radio-group ng-model="ownerContactInfo.isDefault" layout="row" class="block-btns"  ng-init="ownerContactInfo.isDefault = 'false'">
+					<md-radio-button value="true">Use the Owner's default contact info</md-radio-button>
+					<md-radio-button value="false">Use a different contact info for this House</md-radio-button>
+					</md-radio-group>
+					
+				</div>
+			</div>
+			
+			<div ng-show="ownerContactInfo.isDefault == 'true'">
+				<div class="alert alert-info">
+                    If you want to edit this information you need to go to the&nbsp;
+                    <a href="#">Account page</a>
+                </div>
+			</div>
+
+			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
+				<div class="form-group col-md-3">
+					<label for="firstName">First Name</label>
+					<input type="text" name="firstName" class="form-control" ng-model="ownerContactInfo.firstName" id="firstName">
+				</div>
 				
+				<div class="form-group col-md-3"></div>
+				<div class="form-group col-md-3">
+					<label for="email">Email</label>
+					<input type="text" name="email" class="form-control" ng-model="ownerContactInfo.email" id="email">
+				</div>
+			</div>
+			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
+				<div class="form-group col-md-3">
+					<label for="lastName">Last Name</label>
+					<input type="text" name="lastName" class="form-control" ng-model="ownerContactInfo.lastName" id="lastName">
+				</div>
+				
+				<div class="form-group col-md-3"></div>
+				<div class="form-group col-md-3">
+					<label for="website">Do you already have a website?</label>
+					<input type="text" name="website" class="form-control" ng-model="ownerContactInfo.website" id="website">
+				</div>
+			</div>
+			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
+				<div class="form-group col-md-6">
+					<label for="phoneCode" style="display: block;">Phone</label>
+					<div class="row mb-10">
+						<div class="col-md-6" ng-init="ownerContactInfo.phoneCode = phoneCodes[0].code">
+							<select class="form-control" ng-model="ownerContactInfo.phoneCode">
+								<option ng-value="phone.code" ng-repeat="(key, phone) in phoneCodes">{{phone.country}} ({{phone.code}})</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="phoneNumber" class="form-control" ng-model="ownerContactInfo.phoneNumber" id="phoneNumber">
+						</div>
+					</div>
+					<md-checkbox ng-model="ownerContactInfo.hidePhone" aria-label="hidePhone" ng-true-value="true" ng-false-value="false" class="md-primary md-align-top-left"> Do not show phone on my Website </md-checkbox>
+				</div>
+				
+				<!-- <div class="form-group col-md-3"></div> -->
+				<div class="form-group col-md-3">
+					<label for="languages">Spoken languages</label>
+					<select class="form-control" ng-model="ownerContactInfo.languages" id="languages">
+						<option ng-value="language.code" ng-repeat="(key, language) in languageCodes">{{language.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
+				<div class="form-group col-md-6">
+					<label for="additionalPhoneCode" style="display: block;">Additional Phone</label>
+					<div class="row">
+						<div class="col-md-6" ng-init="ownerContactInfo.additionalPhoneCode = phoneCodes[0].code">
+							<select class="form-control" ng-model="ownerContactInfo.additionalPhoneCode">
+								<option ng-value="phone.code" ng-repeat="(key, phone) in phoneCodes">{{phone.country}} ({{phone.code}})</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="additionalPhoneNumber" class="form-control" ng-model="ownerContactInfo.additionalPhoneNumber" id="additionalPhoneNumber">
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
+				<div class="form-group col-md-4">
+					<label for="avatar">Avatar</label>
+					<input type="file" name="avatar" id="avatar" ng-model="ownerContactInfo.avatar">
+				</div>
+				<div class="form-group col-md-8">
+					<label for="ownerDescription">Describe yourself</label>
+					<textarea rows="5" cols="20" id="ownerDescription" ng-model="ownerContactInfo.ownerDescription" class="form-control" placeholder="Write a few words about yourself so helping other people getting to know you."></textarea>
+				</div>
+			</div>
+			
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Reviews </legend>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-3 form-group">
+							<select ng-change="filterBySource()" ng-model="sourceFilter" class="form-control">
+								<option>All Sources</option>
+								<option>Your Site</option>
+								<option>Homeaway</option>
+								<option>Flipkey</option>
+								<option>Tripadvisor</option>
+								<option>Domegos</option>
+								<option>Roomorama</option>
+								<option>NineFlats</option>
+							</select>
+						</div>
+						<div class="col-md-3 form-group">
+							<select ng-change="filterByStatus()" ng-model="statusFilter" class="form-control">
+								<option>All Status</option>
+								<option>Submitted</option>
+								<option>Accepted</option>
+								<option>Rejected</option>
+							</select>
+						</div>
+						<div class="col-md-3"></div>
+						<div class="col-md-3">
+							<button class="btn btn-lg btn-danger mb-10 pull-right">
+							<span><i class="fa fa-plus"></i></span>
+							Add review
+							</button>
+						</div>
+					</div>
+					<div class="bubble">
+						<p class="title">
+						You currently do not have any reviews.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h4 class="field-group-title">External certificate</h4>
+					<p class="muted">
+						<small>
+						If you have a certificate for your property you can upload it here
+						</small>
+					</p>
+					<hr>
+					<h4>
+					Badges
+					<span><i class="fa fa-question-circle" aria-hidden="true" tooltip-placement="auto right" uib-tooltip="If you have a badge from an external website (e.g. tripadvisor) that you would like to show you can add it here. Copy the HTML code for that badge into the textbox below."></i></span>
+					</h4>
+
+					<textarea ng-model="reviews.badge" class="form-control" rows="5"></textarea>
+				</div>
 			</div>
 		</div>
 	</fieldset>
-
 </div>
-
-
 <div class="row bottom-btns" ng-show="currentFormSection == 4">
 	<div class="col-md-12">
-		<button class="btn btn-md btn-success pull-right" ng-click="showSection(currentFormSection + 1)">Save and Continue</button>
-		<button class="btn btn-md btn-success pull-right">Save</button>
+		<button class="btn btn-md btn-success pull-right">Submit</button>
 	</div>
 </div>
