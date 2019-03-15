@@ -1,62 +1,7 @@
 Dropzone.autoDiscover = false;
-var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone', 'ui', 'ngMaterial']);
+var propertyApp   = angular.module('propertyApp', ['ngRoute', 'ui.bootstrap', 'ui.tinymce', 'ui.dropzone', 'ui', 'ngMaterial', 'angularMoment']);
 
-
-propertyApp.config(function(dropzoneOpsProvider){
-  dropzoneOpsProvider.setOptions({
-    url : 'http://localhost/upload.php',
-    acceptedFiles : 'image/jpeg, images/jpg, image/png',
-    addRemoveLinks : true,
-    dictDefaultMessage : 'Click to add or drop photos',
-    dictRemoveFile : 'Remove photo',
-    dictResponseError : 'Could not upload this photo'
-  });
-});
-
-
-propertyApp.directive("select2", function($timeout, $parse) {
-  return {
-    restrict: 'AC',
-    require: 'ngModel',
-    link: function(scope, element, attrs) {
-      console.log(attrs);
-      $timeout(function() {
-        element.select2();
-        element.select2Initialized = true;
-      });
-
-      var refreshSelect = function() {
-        if (!element.select2Initialized) return;
-        $timeout(function() {
-          element.trigger('change');
-        });
-      };
-      
-      var recreateSelect = function () {
-        if (!element.select2Initialized) return;
-        $timeout(function() {
-          element.select2('destroy');
-          element.select2();
-        });
-      };
-
-      scope.$watch(attrs.ngModel, refreshSelect);
-
-      if (attrs.ngOptions) {
-        var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
-        // watch for option list change
-        scope.$watch(list, recreateSelect);
-      }
-
-      if (attrs.ngDisabled) {
-        scope.$watch(attrs.ngDisabled, refreshSelect);
-      }
-    }
-  };
-});
-
-
-propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scope, $rootScope, $window){
+propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scope, $rootScope, $window, $uibModal){
 
 
 /********** Property Defaults ********/
@@ -69,6 +14,8 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
       sizeDim: 'sqft',
       sizeLength: 1,
       noOfUnit: 1,
+      name: 'Rental Type #1',
+      index: 1,
       gallery: [],
       bathroom: {
         have: false,
@@ -91,6 +38,17 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
       }
 
     };
+
+
+  var currentYear = new Date().getFullYear();
+  var reviewYears = []
+  for (var i = 0; i < 5; i++) {
+    
+    reviewYears.push(currentYear--);
+  }
+
+  console.log('reviewYears', reviewYears);
+  $rootScope.reviewYears = reviewYears;
   
   $scope.onLoad = function(){
 
@@ -109,17 +67,12 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
       $scope.languageCodes = response.data;
     });
 
-    $scope.list = ["one", "two", "three", "four", "five", "six"];
-    
     $scope.dzCallbacks = {
       'addedfile' : function(file){
         console.info('File added from dropzone 1.', file);
         console.info('rentalTypes', $scope.property.rentalTypes);
       }
     };
-
-	  $scope.showLoader = true;
-	  $scope.heading = "Welcome";
 	  
 	  $scope.property = {
 	  	types: [{
@@ -137,7 +90,8 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
     $scope.property.currentRentalType = 1;
     $scope.property.rentalTypes = [defaultRentalType];
 
-
+    // used in add reviews modal
+    $rootScope.rentalTypes = $scope.property.rentalTypes;
 
     console.log('$scope.property', $scope.property);
   }
@@ -191,6 +145,10 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
     };
     $scope.property.rentalTypes.push(newRentalType);
     $scope.property.currentRentalType = $scope.property.rentalTypes.length;
+
+    // used in add reviews modal
+    $rootScope.rentalTypes = $scope.property.rentalTypes;
+
     console.log('rentalTypes', $scope.property.rentalTypes);
     console.log('currentRentalType', $scope.property.currentRentalType);
   }
@@ -214,4 +172,177 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
     console.log('rentalTypes', $scope.property.rentalTypes);
   }
+
+  /*********REVIEWS MODAL STARTS************/ 
+  var pc = this;
+  pc.data = "Lorem Name Test"; 
+  $rootScope.reviews = [];
+
+  pc.open = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: baseUrl+'angular/properties/templates/add-review.html',
+      controller: 'ModalInstanceCtrl',
+      controllerAs: 'pc',
+      size: size,
+      resolve: {
+        data: function () {
+          return pc.data;
+        }
+      }
+    });
+
+   
+    modalInstance.result.then(function (data) {
+      
+      $rootScope.reviews.push(data);
+      
+      var totalRating = 0;
+
+      for (var i = 0; i < $rootScope.reviews.length; i++) {
+        
+          totalRating += $rootScope.reviews[i].rating;
+      }
+      
+      $rootScope.averageRating = totalRating/$rootScope.reviews.length;
+
+      console.log('review', data);
+    });
+  };
+  /*********REVIEWS MODAL ENDS************/ 
+
+
 });
+
+angular.module('propertyApp').controller('ModalInstanceCtrl', function ($uibModalInstance, data, $scope, $rootScope, moment) {
+  
+  var review = this;
+
+  review.ok = function () {
+    //{...}
+    console.log("You clicked the ok button.", $scope.review); 
+    $uibModalInstance.close($scope.review);
+  };
+
+  review.cancel = function () {
+    //{...}
+    console.log("You clicked the cancel button."); 
+    $uibModalInstance.dismiss('cancel');
+  };
+
+  /**STAR ***/ 
+  $scope.review = [];
+  $scope.rating = 0;
+  $scope.ratings = [{
+      current: -1,
+      max: 5
+  }];
+
+  $scope.review.currentDate = moment().format('MMM DD YYYY');
+
+  $scope.getSelectedRating = function (rating) {
+      
+      $scope.review.rating = rating;
+  }
+
+});
+
+
+
+
+propertyApp.config(function(dropzoneOpsProvider){
+  dropzoneOpsProvider.setOptions({
+    url : 'http://localhost/upload.php',
+    acceptedFiles : 'image/jpeg, images/jpg, image/png',
+    addRemoveLinks : true,
+    dictDefaultMessage : 'Click to add or drop photos',
+    dictRemoveFile : 'Remove photo',
+    dictResponseError : 'Could not upload this photo'
+  });
+});
+
+
+propertyApp.directive('starRating', function () {
+    return {
+        restrict: 'A',
+        template: '<ul class="rating">' +
+            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+            '\u2605' +
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+            onRatingSelected: '&'
+        },
+        link: function (scope, elem, attrs) {
+
+            var updateStars = function () {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+
+            scope.toggle = function (index) {
+                scope.ratingValue = index + 1;
+                scope.onRatingSelected({
+                    rating: index + 1
+                });
+            };
+
+            scope.$watch('ratingValue', function (oldVal, newVal) {
+                if (newVal) {
+                    updateStars();
+                }
+            });
+        }
+    }
+});
+
+
+propertyApp.directive("select2", function($timeout, $parse) {
+  return {
+    restrict: 'AC',
+    require: 'ngModel',
+    link: function(scope, element, attrs) {
+      console.log(attrs);
+      $timeout(function() {
+        element.select2();
+        element.select2Initialized = true;
+      });
+
+      var refreshSelect = function() {
+        if (!element.select2Initialized) return;
+        $timeout(function() {
+          element.trigger('change');
+        });
+      };
+      
+      var recreateSelect = function () {
+        if (!element.select2Initialized) return;
+        $timeout(function() {
+          element.select2('destroy');
+          element.select2();
+        });
+      };
+
+      scope.$watch(attrs.ngModel, refreshSelect);
+
+      if (attrs.ngOptions) {
+        var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
+        // watch for option list change
+        scope.$watch(list, recreateSelect);
+      }
+
+      if (attrs.ngDisabled) {
+        scope.$watch(attrs.ngDisabled, refreshSelect);
+      }
+    }
+  };
+});
+

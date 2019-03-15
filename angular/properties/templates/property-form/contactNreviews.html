@@ -16,11 +16,10 @@
 			
 			<div ng-show="ownerContactInfo.isDefault == 'true'">
 				<div class="alert alert-info">
-                    If you want to edit this information you need to go to the&nbsp;
-                    <a href="#">Account page</a>
-                </div>
+					If you want to edit this information you need to go to the&nbsp;
+					<a href="#">Account page</a>
+				</div>
 			</div>
-
 			<div class="row" ng-show="ownerContactInfo.isDefault == 'false'">
 				<div class="form-group col-md-3">
 					<label for="firstName">First Name</label>
@@ -64,7 +63,7 @@
 				<!-- <div class="form-group col-md-3"></div> -->
 				<div class="form-group col-md-3">
 					<label for="languages">Spoken languages</label>
-					<select class="form-control" ng-model="ownerContactInfo.languages" id="languages">
+					<select class="form-control" ng-model="ownerContactInfo.languages" id="languages" ng-init="ownerContactInfo.languages = 'AL'">
 						<option ng-value="language.code" ng-repeat="(key, language) in languageCodes">{{language.name}}</option>
 					</select>
 				</div>
@@ -99,43 +98,86 @@
 		</div>
 	</fieldset>
 	<fieldset>
-		<legend>Reviews </legend>
+		<legend>
+			Reviews 
+			<span class="text-muted total-rating" ng-if="reviews.length > 0">Right now, you have a score of
+			<span class="label label-info" ng-if="reviews.length > 0">{{averageRating}} </span></span>
+		</legend>
 		<div class="content">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-md-3 form-group">
-							<select ng-change="filterBySource()" ng-model="sourceFilter" class="form-control">
-								<option>All Sources</option>
-								<option>Your Site</option>
-								<option>Homeaway</option>
-								<option>Flipkey</option>
-								<option>Tripadvisor</option>
-								<option>Domegos</option>
-								<option>Roomorama</option>
-								<option>NineFlats</option>
+							<select ng-change="filterBySource()" ng-init="sourceFilter = 'all-sources'" ng-model="sourceFilter" class="form-control">
+								<option value="all-sources">All Sources</option>
+								<option value="your-site">Your Site</option>
+								<option value="homeaway">Homeaway</option>
+								<option value="flipkey">Flipkey</option>
+								<option value="tripadvisor">Tripadvisor</option>
+								<option value="domegos">Domegos</option>
+								<option value="roomorama">Roomorama</option>
+								<option value="nineflats">NineFlats</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-group">
-							<select ng-change="filterByStatus()" ng-model="statusFilter" class="form-control">
-								<option>All Status</option>
-								<option>Submitted</option>
-								<option>Accepted</option>
-								<option>Rejected</option>
+							<select ng-change="filterByStatus()" ng-init="statusFilter = 'all-status'" ng-model="statusFilter" class="form-control">
+								<option value="all-status">All Status</option>
+								<option value="submitted">Submitted</option>
+								<option value="accepted">Accepted</option>
+								<option value="rejected">Rejected</option>
 							</select>
 						</div>
 						<div class="col-md-3"></div>
 						<div class="col-md-3">
-							<button class="btn btn-lg btn-danger mb-10 pull-right">
-							<span><i class="fa fa-plus"></i></span>
-							Add review
-							</button>
+							<div ng-controller="propertyCtrl as pc" class="modal-demo">
+								<button class="btn btn-lg btn-danger mb-10 pull-right" ng-click="pc.open('md')">
+								<span><i class="fa fa-plus"></i></span>
+								Add review
+								</button>
+							</div>
 						</div>
 					</div>
-					<div class="bubble">
+					<div class="bubble" ng-if="reviews.length == 0">
 						<p class="title">
 						You currently do not have any reviews.</p>
 					</div>
+					
+					<div id="reviews-container">
+						
+						<div class="bubble review" ng-repeat="(key, review) in reviews">
+							<div class="head">
+								<div class=" pull-left">
+									from <strong>{{review.guestName}}</strong> ({{review.guestCountry}}) via <a href="#">Website</a>&nbsp;
+								</div>
+								<div class="pull-left">{{review.currentDate}}</div>
+								<span class="label label-info pull-right">{{review.rating}}</span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="btn-group pull-right">
+								<a data-toggle="dropdown" class="btn dropdown-toggle btn-flat btn-success">
+									Accepted <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a>Reject</a></li>
+									<li class="divider"></li>
+									<li>
+										<a>
+											Reply to review
+										</a>
+									</li>
+									<li><a>Edit Review</a></li>
+									<li><a>Delete</a></li>
+								</ul>
+							</div>
+							<p class="title">{{review.title}}</p>
+							<p style="white-space: pre-line" class="text">{{review.text}}</p>
+							<p class="other-info muted">
+								<span>{{review.stayMonth}}/{{review.stayYear}}</span>
+							</p>
+							
+						</div>
+					</div>
+					
 				</div>
 				<div class="col-md-4">
 					<h4 class="field-group-title">External certificate</h4>
@@ -149,7 +191,6 @@
 					Badges
 					<span><i class="fa fa-question-circle" aria-hidden="true" tooltip-placement="auto right" uib-tooltip="If you have a badge from an external website (e.g. tripadvisor) that you would like to show you can add it here. Copy the HTML code for that badge into the textbox below."></i></span>
 					</h4>
-
 					<textarea ng-model="reviews.badge" class="form-control" rows="5"></textarea>
 				</div>
 			</div>

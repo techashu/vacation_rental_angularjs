@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Add/Edit review</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="row">
+		<div class="form-group col-md-12">
+			<label for="rating">Give your rating</label>
+			<div ng-repeat="rating in ratings">
+            	<div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
+        	</div>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="form-group col-md-6">
+	    	<label for="stayMonth">Month of stay</label>
+	    	<select ng-model="review.stayMonth" id="stayMonth" class="col-md-4 form-control" ng-init="review.stayMonth = '1'">
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+	    	</select>
+	    </div>
+	    <div class="form-group col-md-6">
+	    	<label for="stayYear">&nbsp;</label>
+	    	<select ng-model="review.stayYear" id="stayYear" class="col-md-4 form-control" ng-init="review.stayYear = reviewYears[0]">
+	    		<option ng-value="year" ng-repeat="year in reviewYears">{{year}}</option>
+	    	</select>
+	    </div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 form-group">
+			<label for="apartment">Apartment</label>
+	    	<select ng-model="review.apartment" id="apartment" class="col-md-4 form-control" ng-init="review.apartment = rentalTypes[0].name">
+				<option ng-value="rentalType.name" ng-repeat="(key, rentalType) in rentalTypes">{{rentalType.name}}</option>
+	    	</select>
+		</div>
+		<div class="col-md-6 form-group">
+			<label for="guestType">Guest Type</label>
+			<select ng-model="review.guestType" id="guestType" class="col-md-4 form-control" ng-init="review.guestType = 'notspecified'">
+				<option value="notspecified">Not specified</option>
+				<option value="group">Group</option>
+				<option value="youngcouple">Young couple</option>
+				<option value="maturecouple">Mature couple</option>
+				<option value="familywithnochildren">Family with no Children</option>
+				<option value="familywithyoungchildren">Family with young children</option>
+				<option value="familywitholderchildren">Family with older children</option>
+				<option value="withdisabled">With disabled person</option>
+				<option value="singletraveller">Single traveller</option>
+				<option value="guestswithpets">Guests with pets</option>
+				<option value="other">Other</option>
+			</select>		
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 form-group">
+			<label for="guestName">Guest Name</label>
+	    	<input type="text" name="guestName" id="guestName" ng-model="review.guestName" class="form-control">
+		</div>
+		<div class="col-md-6 form-group">
+			<label for="guestCountry">Guest Country</label>
+	    	<input type="text" name="guestCountry" id="guestCountry" ng-model="review.guestCountry" class="form-control">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 form-group">
+			<label for="email">Email</label>
+	    	<input type="text" name="email" id="email" ng-model="review.email" class="form-control">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 form-group">
+			<label for="reviewTitle">Review Title</label>
+	    	<input type="text" name="title" id="reviewTitle" ng-model="review.title" class="form-control">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 form-group">
+			<label for="reviewText">Review Text</label>
+	    	<textarea type="text" name="text" id="reviewText" ng-model="review.text" class="form-control"></textarea>
+		</div>
+	</div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="pc.ok()">OK</button>
+    <button class="btn btn-danger" type="button" ng-click="pc.cancel()">Cancel</button>
+</div>

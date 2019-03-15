@@ -336,3 +336,28 @@ input:focus + label.append-text {
 .field-group-title { margin: 1em 0; color: #666; font-weight: 400; font-size: 22.99px; line-height: 1.2em; }
 .bubble { background: #fff; border: 2px solid #DDD; border-radius: 5px; padding: 10px; }
 .bubble, .bubble .head { margin-bottom: 10px; }
+.bubble.review { border: 2px solid #03e2c6; }
+.total-rating { font-size: 16px; }
+.rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+}
+ul.rating {
+    display: inline-block;
+}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size:20px;
+}
+.rating .filled {
+    color: #ffd400;
+}
+.clear{
+  margin-top:20px;
+}
