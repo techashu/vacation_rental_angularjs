@@ -172,8 +172,8 @@ h1, h2, h3, h4, h5, h6 { margin: 1em 0; }
     margin-top: 5px;
 }
 
-.mb-40 { margin-bottom: 40px; }
-.mb-10 { margin-bottom: 10px; }
+.mb-40 { margin-bottom: 40px !important; }
+.mb-10 { margin-bottom: 10px !important; }
 
 .margin-none { margin: 0 !important; }
 
@@ -331,7 +331,7 @@ input:focus + label.append-text {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
 
-.block-btns { display: block !important; }
+.block-btns, .block-item { display: block !important; }
 .block-btns md-radio-button { margin-bottom: 15px !important; }
 .field-group-title { margin: 1em 0; color: #666; font-weight: 400; font-size: 22.99px; line-height: 1.2em; }
 .bubble { background: #fff; border: 2px solid #DDD; border-radius: 5px; padding: 10px; }
@@ -361,3 +361,7 @@ ul.rating {
 .clear{
   margin-top:20px;
 }
+a.form-link, a.form-link:hover { cursor: pointer; color: #fa4133; }
+a.form-link:hover { text-decoration: none; }
+table.no-inner-borders th, table.no-inner-borders td { border: none !important; }
+table.no-inner-borders { border: 1px solid #ddd; }
