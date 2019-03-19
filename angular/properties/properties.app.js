@@ -39,6 +39,10 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
     };
 
+    var defaultSeasonRate = {
+      dailyPrice: false,
+    };
+
 
   var currentYear = new Date().getFullYear();
   var reviewYears = []
@@ -86,9 +90,14 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 	    }]
     }
 
+    $scope.rates = {
+      bookability: 'inquiry-only'
+    };
 
-    $scope.property.currentRentalType = 1;
+
+    $scope.property.currentRentalType = $scope.rates.currentSeasonRate = 1;
     $scope.property.rentalTypes = [defaultRentalType];
+    $scope.rates.seasonRates = [defaultSeasonRate];
 
     // used in add reviews modal
     $rootScope.rentalTypes = $scope.property.rentalTypes;
@@ -169,6 +178,40 @@ propertyApp.controller('propertyCtrl',function($interval, $timeout, $http, $scop
 
   // allow editing of a rental type 
   $scope.saveRentalType = function() {
+
+    console.log('rentalTypes', $scope.property.rentalTypes);
+  }
+
+
+  // Add new season rate with default values
+  $scope.addSeasonRate = function() {
+    let newSeasonRate = {
+      dailyPrice: false
+    };
+    $scope.rates.seasonRates.push(newSeasonRate);
+    $scope.rates.currentSeasonRate = $scope.rates.seasonRates.length;
+
+    console.log('seasonRate', $scope.rates.seasonRates);
+    console.log('currentSeasonRate', $scope.rates.currentSeasonRate);
+  }
+
+
+  // cancel editing of season rate
+  $scope.cancelSeasonRateEdit = function() {
+
+    $scope.rates.currentSeasonRate = 0; // do not match any
+    console.log('currentRentalType', $scope.rates.currentSeasonRate);
+  }
+
+  // allow editing of a season rate 
+  $scope.allowEditSeasonRate = function(currentRentalType) {
+    
+    $scope.rates.currentSeasonRate = currentRentalType;
+    console.log('currentRentalType', $scope.rates.currentSeasonRate);
+  }
+
+  // allow editing of a season rate 
+  $scope.saveSeasonRate = function() {
 
     console.log('rentalTypes', $scope.property.rentalTypes);
   }
